@@ -1,0 +1,20 @@
+{
+	"folders": [
+    {
+      "name": "api",
+      "path": "api"
+    },
+    {
+      "name": "frontend",
+      "path": "frontend"
+    },
+    {
+      "name": "closingconnect",
+      "path": "."
+    }
+  ],
+    "settings": {
+      "typescript.tsdk": "frontend/node_modules/typescript/lib",
+      "debug.internalConsoleOptions": "neverOpen"
+    }
+}

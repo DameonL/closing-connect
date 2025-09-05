@@ -1,0 +1,357 @@
+:root {
+  --primary: #4361ee;
+  --primary-light: #4895ef;
+  --secondary: #3f37c9;
+  --dark: #1b263b;
+  --light: #f8f9fa;
+  --success: #4cc9f0;
+  --danger: #f72585;
+  --warning: #f8961e;
+  --border-radius: 8px;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+  --primary: #4895ef;
+  --primary-light: #4361ee;
+  --secondary: #3a0ca3;
+  --dark: #f8f9fa;
+  --light: #1b263b;
+  --success: #4cc9f0;
+  --danger: #f72585;
+  --warning: #f8961e;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light);
+  color: var(--dark);
+  margin: 0;
+  padding: 0;
+  transition: var(--transition);
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 1.5rem 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.searchBar {
+  width: min(80%, 600px);
+  margin: 1rem auto;
+  display: block;
+  font-size: 1.1rem;
+  border-radius: var(--border-radius);
+  padding: 0.8rem 1.2rem;
+  border: 2px solid var(--primary-light);
+  outline: none;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+}
+
+.searchBar:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+.toastContainer {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toastItem {
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  background-color: var(--success);
+  color: white;
+  width: fit-content;
+  padding: 0.8rem 1.2rem;
+  animation: toastItemFade 3s forwards;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+@keyframes toastItemFade {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  10% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  90% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+.boxedItem {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 800px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+[data-theme="dark"] .boxedItem {
+  background-color: rgba(30, 30, 40, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.button {
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: var(--primary);
+  color: white;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  margin: 0.25rem;
+}
+
+.button:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  background-color: gray;
+}
+
+.vendorName {
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.vendorName:hover {
+  background-color: rgba(67, 97, 238, 0.1);
+  font-weight: 600;
+}
+
+.searchResults {
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.searchResultPageButton {
+  cursor: pointer;
+  color: var(--primary);
+  user-select: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition);
+  margin: 0.25rem;
+}
+
+.searchResultPageButton:hover {
+  background-color: rgba(67, 97, 238, 0.1);
+  font-weight: bold;
+}
+
+.searchResultPageButton.active {
+  background-color: var(--primary);
+  color: white;
+  font-weight: bold;
+}
+
+.pageNumbers {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.vendorSummary {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.vendorDetails {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.vendorNote {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.labelWithValue {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.75rem 0;
+  flex-wrap: wrap;
+}
+
+.labelWithValue > span:first-of-type {
+  font-weight: 600;
+  min-width: 120px;
+  color: var(--primary);
+}
+
+.labelWithValue > span:first-of-type::after {
+  content: ":";
+}
+
+.loader {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid rgba(67, 97, 238, 0.2);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  z-index: 100;
+  transition: var(--transition);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .vendorDetails,
+  .searchResults {
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .labelWithValue {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .searchBar {
+    width: 90%;
+  }
+}
+
+.formField {
+  margin-bottom: 1.5rem;
+}
+
+.formField label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--primary-light);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+  background-color: var(--light);
+  color: var(--dark);
+}
+
+[data-theme="dark"] .formInput {
+  background-color: rgba(30, 30, 40, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.formInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+  outline: none;
+}
+
+textarea.formInput {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.secondaryButton {
+  background-color: var(--secondary);
+}
+
+.secondaryButton:hover {
+  background-color: var(--dark);
+}
+
+.buttonLoader {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
