@@ -7,7 +7,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@azure/functions": "^4.7.2-preview",
     "typescript": "^5.2.2"
   }
 }
