@@ -16,10 +16,10 @@
   "dependencies": {
     "@azure/communication-email": "^1.0.0",
     "@azure/cosmos": "^3.17.3",
-    "@azure/functions": "^4.0.1",
     "@azure/search-documents": "^11.3.1"
   },
   "devDependencies": {
+    "@azure/functions": "^4.7.2-preview",
     "@types/closing-connect": "file:../types",
     "@types/node": "^16.x",
     "@types/uuid": "^9.0.1",
