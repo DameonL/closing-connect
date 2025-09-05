@@ -3,7 +3,7 @@ import { createContext, h } from "preact";
 import { useCallback, useContext } from "preact/hooks";
 import { useAuth } from "./AuthenticationProvider";
 
-const backendURL = "https://api.closing-connect.com";
+const backendURL = "https://api.closing-connect.com/";
 
 export enum ApiRoute {
   OpenVendor = "openVendor",
