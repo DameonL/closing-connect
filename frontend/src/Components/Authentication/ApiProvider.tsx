@@ -3,6 +3,8 @@ import { createContext, h } from "preact";
 import { useCallback, useContext } from "preact/hooks";
 import { useAuth } from "./AuthenticationProvider";
 
+const backendURL = "https://api.closing-connect.com";
+
 export enum ApiRoute {
   OpenVendor = "openVendor",
   Vendor = "vendor",
@@ -58,7 +60,6 @@ const CACHE_VERSION = 1;
 
 export function ApiProvider({ children }: { children: preact.ComponentChildren }) {
   const { getToken } = useAuth();
-  const backendURL = "https://payoffs.azurewebsites.net/api/";
 
   const getRouteUrl = useCallback((request: ApiRequest) => {
     if (request.query) {
