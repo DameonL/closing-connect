@@ -1,6 +1,6 @@
 import { app } from "@azure/functions";
 import routes from "./routes";
-import { AzureCosmosRoute, AzureHttpRoute } from "closing-connect/AzureRoutes";
+import { AzureHttpRoute, AzureCosmosRoute } from "./AzureRoutes";
 
 const usedRoutes: { [id: string]: AzureHttpRoute | AzureCosmosRoute } = {};
 

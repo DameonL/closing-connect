@@ -1,7 +1,7 @@
 import { HTTPMethod } from "@azure/cosmos";
 import { app } from "@azure/functions";
+import { AzureHttpRoute } from "../../AzureRoutes";
 import vendorGet from "./get";
-import { AzureHttpRoute } from "closing-connect/AzureRoutes";
 
 const route = "openVendor";
 const routes: AzureHttpRoute[] = [

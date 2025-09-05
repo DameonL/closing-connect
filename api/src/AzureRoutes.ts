@@ -7,9 +7,9 @@ import {
   HttpTriggerOptions,
 } from "@azure/functions";
 
-declare type AzureRouteName = "vendor" | "openVendor";
+export type AzureRouteName = "vendor" | "openVendor";
 
-declare interface AzureHttpRoute {
+export interface AzureHttpRoute {
   trigger: (name: string, options: HttpFunctionOptions) => void;
   route: AzureRouteName;
   method: HttpMethod;
@@ -17,7 +17,7 @@ declare interface AzureHttpRoute {
   authLevel?: HttpTriggerOptions["authLevel"]
 }
 
-declare interface AzureCosmosRoute {
+export interface AzureCosmosRoute {
   trigger: (name: string, options: CosmosDBFunctionOptions) => void;
   route: AzureRouteName;
   connection: {

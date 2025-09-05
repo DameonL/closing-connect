@@ -3,7 +3,7 @@ import { app } from "@azure/functions";
 import vendorDelete from "./delete";
 import vendorGet from "./get";
 import vendorPost from "./post";
-import { AzureHttpRoute } from "closing-connect/AzureRoutes";
+import { AzureHttpRoute } from "../../AzureRoutes";
 
 const route = "vendor";
 const routes: AzureHttpRoute[] = [
