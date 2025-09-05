@@ -7,6 +7,9 @@
       "leaseOptions": {
         "leasePrefix": "prefix1"
       }
+    },
+    "http": {
+      "routePrefix": ""
     }
   },
   "logging": {
