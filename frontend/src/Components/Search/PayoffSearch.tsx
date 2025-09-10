@@ -1,9 +1,9 @@
 import { h } from "preact";
 import { useLocation } from "preact-iso";
 import { useEffect, useState } from "preact/hooks";
-import updateWindowQuery from "../updateWindowQuery";
-import { ApiMethod, ApiRoute, useApi } from "./Authentication/ApiProvider";
-import { useAuth } from "./Authentication/AuthenticationProvider";
+import updateWindowQuery from "../../updateWindowQuery";
+import { ApiMethod, ApiRoute, useApi } from "../Authentication/ApiProvider";
+import { useAuth } from "../Authentication/AuthenticationProvider";
 import SearchResult from "./SearchResult";
 
 export default function PayoffSearch() {
@@ -110,9 +110,8 @@ export default function PayoffSearch() {
     for (let i = pageOffset; i < pages && i < pageOffset + 5; i++) {
       output.push(
         <button
-          className={`searchResultPageButton ${
-            i * limit === offset ? "active" : ""
-          }`}
+          className={`searchResultPageButton ${i * limit === offset ? "active" : ""
+            }`}
           key={i}
           onClick={() => {
             changePage(i * limit);

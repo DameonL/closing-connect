@@ -1,10 +1,10 @@
 import { h } from "preact";
 import { useLocation } from "preact-iso";
 import { useEffect, useState } from "preact/hooks";
-import getFirstLetter from "../getFirstLetter";
-import { ApiMethod, ApiRoute, useApi } from "./Authentication/ApiProvider";
-import { useAuth } from "./Authentication/AuthenticationProvider";
-import { toastMessager } from "./ToastMessages";
+import getFirstLetter from "../../getFirstLetter";
+import { useApi, ApiMethod, ApiRoute } from "../Authentication/ApiProvider";
+import { useAuth } from "../Authentication/AuthenticationProvider";
+import { toastMessager } from "../ToastMessages";
 import { VendorNote } from "./VendorNote";
 import { VendorNoteEditor } from "./VendorNoteEditor";
 

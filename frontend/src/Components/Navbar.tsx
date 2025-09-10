@@ -1,5 +1,5 @@
 import { h } from "preact";
-import ThemeToggleButton from "./ThemeToggleButton";
+import ThemeToggleButton from "./Theming/ThemeToggleButton";
 
 export default function Navbar() {
   return (

@@ -2,15 +2,10 @@
 import { h } from "preact";
 import { useLocation } from "preact-iso";
 import { useState, useEffect } from "preact/hooks";
-import {
-  ApiMethod,
-  ApiRequest,
-  ApiRoute,
-  useApi,
-} from "./Authentication/ApiProvider";
-import { useAuth } from "./Authentication/AuthenticationProvider";
-import { toastMessager } from "./ToastMessages";
 import { v4 } from "uuid";
+import { useApi, ApiMethod, ApiRoute, ApiRequest } from "../Authentication/ApiProvider";
+import { useAuth } from "../Authentication/AuthenticationProvider";
+import { toastMessager } from "../ToastMessages";
 
 export default function VendorForm() {
   const [vendor, setVendor] = useState<PayoffVendor>();

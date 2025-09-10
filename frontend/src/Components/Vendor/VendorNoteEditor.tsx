@@ -1,8 +1,8 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
-import { ApiMethod, ApiRoute, useApi } from "./Authentication/ApiProvider";
-import { useAuth } from "./Authentication/AuthenticationProvider";
-import { toastMessager } from "./ToastMessages";
+import { useApi, ApiMethod, ApiRoute } from "../Authentication/ApiProvider";
+import { useAuth } from "../Authentication/AuthenticationProvider";
+import { toastMessager } from "../ToastMessages";
 
 interface VendorNoteEditorProps {
   vendor: PayoffVendor;

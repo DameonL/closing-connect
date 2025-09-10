@@ -1,9 +1,9 @@
 import { h } from "preact";
-import { LocationProvider, Route, Router } from "preact-iso";
+import { Route, Router } from "preact-iso";
 import LoginSuccess from "./Authentication/LoginSuccess";
-import PayoffSearch from "./PayoffSearch";
-import PayoffVendor from "./PayoffVendor";
-import PayoffVendorEditor from "./PayoffVendorEditor";
+import PayoffSearch from "./Search/PayoffSearch";
+import PayoffVendor from "./Vendor/PayoffVendor";
+import PayoffVendorEditor from "./Vendor/PayoffVendorEditor";
 
 export default function Routes() {
   return (
