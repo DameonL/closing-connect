@@ -355,3 +355,14 @@ textarea.formInput {
   border-top-color: white;
   animation: spin 1s ease-in-out infinite;
 }
+
+a, a:visited {
+  color: cadetblue;
+}
+
+.footer {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: -100;
+}
