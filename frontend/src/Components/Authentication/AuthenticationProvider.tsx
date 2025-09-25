@@ -85,21 +85,26 @@ export function AuthenticationProvider({
 
   const login = async () => {
     if (!msalInstance) return;
+    let account = msalInstance.getAllAccounts()[0];
+    if (account) {
+      msalInstance.setActiveAccount(account);
+    }
 
     setIsLoading(true);
     setError(undefined);
 
     try {
-      let result: AuthenticationResult;
-      try {
-        result = await msalInstance.acquireTokenSilent(loginRequest);
-      } catch (silentError) {
-        if (silentError instanceof InteractionRequiredAuthError) {
-          result = await msalInstance.loginPopup(loginRequest);
-        } else {
-          throw silentError;
-        }
+      let result: AuthenticationResult | undefined;
+      if (account) {
+        try {
+          result = await msalInstance.acquireTokenSilent(loginRequest);
+        } catch (silentError) { }
       }
+
+      if (!result) {
+        result = await msalInstance.loginPopup(loginRequest);
+      }
+
       msalInstance.setActiveAccount(result.account);
       setAccount(result.account);
       setToken(result.accessToken);
