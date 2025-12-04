@@ -47,7 +47,6 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
 
   const getHeaders = useCallback(async () => {
     const headers = new Headers();
-    headers.append("cache", "no-store")
     const apiToken = await getToken();
     if (apiToken) {
       headers.append("Authorization", `Bearer ${apiToken}`);
@@ -70,6 +69,7 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
             method: request.method,
             headers,
             body: request.body ? JSON.stringify(request.body) : undefined,
+            cache: "no-cache"
           };
 
           response = await fetch(routeUrl, requestOptions);
