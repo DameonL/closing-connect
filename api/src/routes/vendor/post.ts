@@ -92,9 +92,10 @@ export default async function vendor(
       await indexerClient.runIndexer("payoffs-indexer");
     } catch (error) { }
 
-    let response: Response | undefined;
+    let responseBody: string | undefined;
     if (updatedVendor.id) {
-      response = await VendorCache.purge(updatedVendor.id);
+      const response = await VendorCache.purge(updatedVendor.id);
+      responseBody = await response.text();
     }
 
     return {
@@ -103,7 +104,7 @@ export default async function vendor(
         "Cache-Control": "no-store",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ vendor: updatedVendor, response }),
+      body: JSON.stringify({ vendor: updatedVendor, responseBody }),
     };
   } catch (error) {
     return {
