@@ -12,6 +12,7 @@ import {
 import getFirstLetter from "../../common/Utilities/getFirstLetter";
 
 const writeKey = process.env.PayoffSearchWriteKey;
+const cacheClearToken = process.env.CLOUDFLARE_CACHE_PURGE_KEY;
 const searchEndpoint = "https://payoff-search.search.windows.net";
 
 function removeIllegalChars(id: string) {
@@ -89,7 +90,40 @@ export default async function vendor(
         new AzureKeyCredential(writeKey)
       );
       await indexerClient.runIndexer("payoffs-indexer");
-    } catch (error) {}
+    } catch (error) { }
+
+    fetch(
+      "https://api.cloudflare.com/client/v4/zones/c40e1c0ee80f88b6051a76c8942e48fe/purge_cache",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cacheClearToken}`,
+        },
+        body: JSON.stringify({
+          prefixes: [
+            `https://api.closing-connect.com/openVendor?id=${updatedVendor.id}`,
+          ],
+        }),
+      }
+    );
+
+    fetch(
+      "https://api.cloudflare.com/client/v4/zones/c40e1c0ee80f88b6051a76c8942e48fe/purge_cache",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cacheClearToken}`,
+        },
+        body: JSON.stringify({
+          prefixes: [
+            `https://api.closing-connect.com/openVendor?limit=10&search=`,
+          ],
+        }),
+      }
+    );
+
     return {
       status: 200,
       headers: {
