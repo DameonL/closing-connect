@@ -1,6 +1,7 @@
 import { CosmosClient } from "@azure/cosmos";
 import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { AzureKeyCredential, SearchClient, SearchIndexerClient } from "@azure/search-documents";
+import VendorCache from "../../common/Utilities/VendorCache";
 
 const writeKey = process.env.PayoffSearchWriteKey;
 
@@ -38,7 +39,9 @@ export default async function route(req: HttpRequest, context: InvocationContext
 
   try {
     await indexerClient.runIndexer("payoffs-indexer");
-  } catch (error) {}
+  } catch (error) { }
+
+  VendorCache.purge(vendor.id);
 
   return {
     status: 200,
