@@ -69,7 +69,7 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
             method: request.method,
             headers,
             body: request.body ? JSON.stringify(request.body) : undefined,
-            cache: "no-cache"
+            cache: "no-store"
           };
 
           response = await fetch(routeUrl, requestOptions);
