@@ -47,6 +47,7 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
 
   const getHeaders = useCallback(async () => {
     const headers = new Headers();
+    headers.append("cache", "no-store")
     const apiToken = await getToken();
     if (apiToken) {
       headers.append("Authorization", `Bearer ${apiToken}`);
