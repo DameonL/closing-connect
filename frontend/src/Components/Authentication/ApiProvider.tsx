@@ -1,4 +1,3 @@
-import objectHash from "object-hash";
 import { createContext, h } from "preact";
 import { useCallback, useContext } from "preact/hooks";
 import { useAuth } from "./AuthenticationProvider";
@@ -8,6 +7,7 @@ const backendURL = "https://api.closing-connect.com/";
 export enum ApiRoute {
   OpenVendor = "openVendor",
   Vendor = "vendor",
+  Search = "search"
 }
 
 export enum ApiMethod {
@@ -31,24 +31,9 @@ type ApiContextType = {
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
-const parseCacheControl = (cacheControl: string | null) => {
-  if (!cacheControl) return null;
-
-  const maxAgeMatch = cacheControl.match(/max-age=(\d+)/i);
-  if (!maxAgeMatch) return null;
-
-  return parseInt(maxAgeMatch[1], 10);
-};
-
 function hasBody(response: Response) {
   return response.headers.get("Content-Type")?.includes("application/json");
 }
-
-async function tryGetBody(response: Response) {
-  if (hasBody(response)) return await response.json();
-}
-
-const CACHE_VERSION = 1;
 
 export function ApiProvider({ children }: { children: preact.ComponentChildren }) {
   const { getToken } = useAuth();

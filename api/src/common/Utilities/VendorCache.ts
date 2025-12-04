@@ -11,11 +11,12 @@ namespace VendorCache {
           Authorization: `Bearer ${cacheClearToken}`,
         },
         body: JSON.stringify({
-          prefixes: [
-            `api.closing-connect.com/openVendor?id=${vendorId}`,
-            `api.closing-connect.com/openVendor?limit=10&search=`,
-            `api.closing-connect.com/vendor?id=${vendorId}`,
+          files: [
+            `https://api.closing-connect.com/openVendor?id=${vendorId}`,
+            `https://api.closing-connect.com/openVendor?limit=10&search=`,
+            `https://api.closing-connect.com/vendor?id=${vendorId}`,
           ],
+          prefixes: ["api.closing-connect.com/search"]
         }),
       }
     )

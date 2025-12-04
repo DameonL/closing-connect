@@ -23,7 +23,7 @@ export default function PayoffSearch() {
     const query = new URLSearchParams(window.location.search);
     const responseBody = await api.sendRequest<SearchResponse>({
       method: ApiMethod.get,
-      route: ApiRoute.OpenVendor,
+      route: ApiRoute.Search,
       query,
     });
     setSearchResults(responseBody);
