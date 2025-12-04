@@ -85,7 +85,7 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
           }
 
           if (hasBody(response)) {
-            responseJson = await response.clone().json();
+            responseJson = await response.json();
           }
 
           return responseJson;
