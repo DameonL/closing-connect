@@ -27,14 +27,6 @@ export interface ApiRequest<T = any> {
 
 type ApiContextType = {
   sendRequest: <T>(request: ApiRequest) => Promise<T | undefined>;
-  invalidateCache: (
-    request:
-      | ApiRequest
-      | {
-          route: ApiRoute;
-          invalidateItem: (item: Response) => boolean | Promise<boolean>;
-        }
-  ) => Promise<void>;
 };
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
@@ -77,57 +69,9 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
     return headers;
   }, [getToken]);
 
-  const invalidateCache = useCallback(
-    async (
-      request:
-        | ApiRequest
-        | {
-            route: ApiRoute;
-            invalidateItem: (item: Response) => boolean | Promise<boolean>;
-          }
-    ) => {
-      if (!caches) return;
-
-      const cache = await caches.open(`${request.route}_v${CACHE_VERSION}`);
-
-      if ("invalidateItem" in request) {
-        const cached = await cache.matchAll();
-        for (const item of cached) {
-          if (await request.invalidateItem(item)) {
-            cache.delete(item.url);
-          }
-        }
-      } else {
-        const routeUrl = getRouteUrl(request);
-        await cache.delete(routeUrl);
-      }
-    },
-    [getRouteUrl]
-  );
-
   const sendRequest = useCallback(
     async <T,>(request: ApiRequest): Promise<T | undefined> => {
       const routeUrl = getRouteUrl(request);
-      const cacheUrl = `${routeUrl}${request.body ? `_${objectHash(request.body)}` : ""}`;
-      const cache = caches ? await caches.open(`${request.route}_v${CACHE_VERSION}`) : undefined;
-
-      let cachedResponse: Response | undefined;
-      if (cache) {
-        cachedResponse = await cache.match(cacheUrl);
-        if (cachedResponse) {
-          const cacheControl = cachedResponse.headers.get("Cache-Control");
-          const cachedAtHeader = cachedResponse.headers.get("Date");
-          const maxAge = parseCacheControl(cacheControl);
-
-          if (maxAge !== null) {
-            const cachedAt = cachedAtHeader ? new Date(cachedAtHeader).valueOf() : Date.now();
-            const expiresAt = cachedAt + maxAge * 1000;
-            if (expiresAt > Date.now()) {
-              return await tryGetBody(cachedResponse);
-            }
-          }
-        }
-      }
 
       let response: Response | undefined;
       let responseJson: T | undefined;
@@ -142,27 +86,7 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
             body: request.body ? JSON.stringify(request.body) : undefined,
           };
 
-          // Revalidation for no-cache
-          if (cachedResponse) {
-            const etag = cachedResponse.headers.get("ETag");
-            const lastModified = cachedResponse.headers.get("Last-Modified");
-
-            if (etag) {
-              headers.append("If-None-Match", etag);
-            }
-            if (lastModified) {
-              headers.append("If-Modified-Since", lastModified);
-            }
-          }
-
           response = await fetch(routeUrl, requestOptions);
-
-          if (response.status === 304) {
-            // Not Modified, return the cached body
-            if (cachedResponse) {
-              return await tryGetBody(cachedResponse);
-            }
-          }
 
           if (response.status === 401 && retries > 1) {
             await getToken();
@@ -176,25 +100,6 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
 
           if (hasBody(response)) {
             responseJson = await response.clone().json();
-          }
-
-          const cacheControl = response.headers.get("Cache-Control");
-          if (cache && cacheControl && !/no-store/i.test(cacheControl)) {
-            const headers = new Headers(response.headers);
-            if (!headers.has("Date")) {
-              headers.append("Date", new Date().toUTCString());
-            }
-
-            const cacheResponse = response.clone();
-            const body = await cacheResponse.blob();
-
-            const responseToCache = new Response(body, {
-              status: response.status,
-              statusText: response.statusText,
-              headers: headers,
-            });
-
-            await cache.put(cacheUrl, responseToCache);
           }
 
           return responseJson;
@@ -212,7 +117,6 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
 
   const value = {
     sendRequest,
-    invalidateCache,
   };
 
   return <ApiContext.Provider value={value}>{children}</ApiContext.Provider>;

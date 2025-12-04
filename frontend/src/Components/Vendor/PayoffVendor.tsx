@@ -58,12 +58,6 @@ export default function PayoffVendorView() {
         ]),
       });
 
-      await api.invalidateCache({
-        method: ApiMethod.get,
-        route: ApiRoute.OpenVendor,
-        query: new URLSearchParams([["id", details.id ?? ""]]),
-      });
-
       toastMessager.showToastMessage("Vendor deleted successfully!");
       location.route("/");
     } catch (error) {

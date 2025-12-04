@@ -91,11 +91,6 @@ export default function VendorForm() {
         toastMessager.showToastMessage("Vendor updated successfully!");
       }
 
-      await api.invalidateCache({
-        method: ApiMethod.get,
-        route: ApiRoute.OpenVendor,
-        query: new URLSearchParams([["id", formData.id ?? ""]]),
-      });
       location.route(`vendor?id=${formData.id}`);
     } catch (error) {
       console.error(error);

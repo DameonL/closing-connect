@@ -55,12 +55,6 @@ export function VendorNoteEditor({
         body: { vendor: updatedVendor },
       });
 
-      await api.invalidateCache({
-        method: ApiMethod.get,
-        route: ApiRoute.OpenVendor,
-        query: new URLSearchParams([["id", updatedVendor.id ?? ""]]),
-      });
-
       toastMessager.showToastMessage("Note saved successfully!");
       onSave(updatedVendor);
     } catch (error) {

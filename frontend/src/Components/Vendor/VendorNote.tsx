@@ -37,12 +37,6 @@ export function VendorNote({
         body: { vendor: updatedVendor },
       });
 
-      await api.invalidateCache({
-        method: ApiMethod.get,
-        route: ApiRoute.OpenVendor,
-        query: new URLSearchParams([["id", vendor.id ?? ""]]),
-      });
-
       toastMessager.showToastMessage("Note deleted successfully!");
       onNoteDeleted?.(updatedVendor);
     } catch (error) {
