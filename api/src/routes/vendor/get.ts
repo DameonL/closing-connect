@@ -84,6 +84,7 @@ export default async function vendor(
         status: 200,
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": "ache-Control: public, max-age=3600, must-revalidate"
         },
         body: JSON.stringify({ vendor }),
       };
