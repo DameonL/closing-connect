@@ -60,5 +60,5 @@ jobs:
         with:
           app-name: 'api-private'
           slot-name: 'Production'
-          package: .
+          package: ./
           remote-build: true
