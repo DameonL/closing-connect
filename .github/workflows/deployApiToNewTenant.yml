@@ -38,7 +38,7 @@ jobs:
           popd
 
       - name: Install node_modules
-        run: mv ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/node_modules ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/build
+        run: mv ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/node_modules ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/dist
 
       - name: Zip artifact for deployment
         run: |
