@@ -2,7 +2,7 @@
   "name": "api",
   "version": "0.20.26",
   "description": "",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=22"
   },
@@ -26,14 +26,5 @@
     "@types/uuid": "^9.0.1",
     "nodemon": "^3.1.10",
     "typescript": "^5.9.3"
-  },
-  "copyFiles": [
-    {
-      "from": "./host.json",
-      "to": "build/host.json"
-    }
-  ],
-  "copyFilesSettings": {
-    "whenFileExists": "overwrite"
   }
 }
