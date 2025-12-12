@@ -28,11 +28,29 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: 'Resolve Project Dependencies Using Npm'
+        shell: bash
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+          popd
+
+      - name: Install node_modules
+        run: mv ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/node_modules ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/dist
+
+      - name: Zip artifact for deployment
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          zip -r ../release.zip ./*
+          popd
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: api
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -54,11 +72,17 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CLOSING_CONNECT }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CLOSING_CONNECT }}
 
+      - name: Unzip artifact for deployment
+        run: |
+          unzip release.zip
+          rm release.zip
+      
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
         id: fa
         with:
           app-name: 'api-private'
           slot-name: 'Production'
-          package: ./
-          remote-build: true
+          package: .
+          remote-build: true,
+          sku: 'flexconsumption'
