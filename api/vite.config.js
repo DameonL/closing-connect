@@ -8,7 +8,7 @@ export default defineConfig({
       entry: "./index.ts",
       name: "Closing-Connect API"
     },
-		outDir: "./build/",
+		outDir: "../build/",
     emptyOutDir: true,
 		minify: "false",
 		rollupOptions: {
