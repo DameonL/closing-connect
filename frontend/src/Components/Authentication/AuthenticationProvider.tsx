@@ -72,6 +72,12 @@ export function AuthenticationProvider({
           msalInstance.setActiveAccount(activeAccount);
           setAccount(activeAccount);
           await acquireAccessTokenSilently(msalInstance);
+        } else {
+          const authResult = await msalInstance.handleRedirectPromise();
+          if (authResult) {
+            msalInstance.setActiveAccount(authResult.account);
+            setAccount(authResult.account);
+          }
         }
       } catch (err) {
         setError(err instanceof Error ? err : new Error(String(err)));
@@ -102,12 +108,8 @@ export function AuthenticationProvider({
       }
 
       if (!result) {
-        result = await msalInstance.loginPopup(loginRequest);
+        await msalInstance.loginRedirect(loginRequest);
       }
-
-      msalInstance.setActiveAccount(result.account);
-      setAccount(result.account);
-      setToken(result.accessToken);
     } catch (err) {
       setError(err instanceof Error ? err : new Error(String(err)));
     } finally {
