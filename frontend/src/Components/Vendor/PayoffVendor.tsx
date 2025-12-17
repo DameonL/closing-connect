@@ -2,7 +2,7 @@ import { h } from "preact";
 import { useLocation } from "preact-iso";
 import { useEffect, useState } from "preact/hooks";
 import getFirstLetter from "../../getFirstLetter";
-import { useApi, ApiMethod, ApiRoute } from "../Authentication/ApiProvider";
+import { ApiMethod, useApi } from "../Authentication/ApiProvider";
 import { useAuth } from "../Authentication/AuthenticationProvider";
 import { toastMessager } from "../ToastMessages";
 import { VendorNote } from "./VendorNote";
@@ -32,7 +32,7 @@ export default function PayoffVendorView() {
     try {
       const vendor = await api.sendRequest<{ vendor: PayoffVendor }>({
         method: ApiMethod.get,
-        route: ApiRoute.OpenVendor,
+        route: "openVendor",
         query,
       });
       setDetails(vendor?.vendor);
@@ -51,11 +51,12 @@ export default function PayoffVendorView() {
     try {
       await api.sendRequest({
         method: ApiMethod.delete,
-        route: ApiRoute.Vendor,
+        route: "vendor",
         query: new URLSearchParams([
           ["id", details.id ?? ""],
           ["firstLetter", details.firstLetter ?? getFirstLetter(details.name)],
         ]),
+        isPrivate: true
       });
 
       toastMessager.showToastMessage("Vendor deleted successfully!");

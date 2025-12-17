@@ -51,8 +51,9 @@ export function VendorNoteEditor({
 
       await api.sendRequest({
         method: ApiMethod.post,
-        route: ApiRoute.Vendor,
+        route: "vendor",
         body: { vendor: updatedVendor },
+        isPrivate: true
       });
 
       toastMessager.showToastMessage("Note saved successfully!");

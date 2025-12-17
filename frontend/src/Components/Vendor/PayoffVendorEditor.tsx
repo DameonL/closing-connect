@@ -1,12 +1,12 @@
 // VendorForm.tsx
 import { h } from "preact";
 import { useLocation } from "preact-iso";
-import { useState, useEffect } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { v4 } from "uuid";
-import { useApi, ApiMethod, ApiRoute, ApiRequest } from "../Authentication/ApiProvider";
+import getFirstLetter from "../../getFirstLetter";
+import { ApiMethod, ApiRequest, useApi } from "../Authentication/ApiProvider";
 import { useAuth } from "../Authentication/AuthenticationProvider";
 import { toastMessager } from "../ToastMessages";
-import getFirstLetter from "../../getFirstLetter";
 
 export default function VendorForm() {
   const [vendor, setVendor] = useState<PayoffVendor>();
@@ -35,7 +35,8 @@ export default function VendorForm() {
         loadedVendor = (
           await api.sendRequest<{ vendor: PayoffVendor }>({
             method: ApiMethod.get,
-            route: ApiRoute.OpenVendor,
+            route: "openVendor",
+            isPrivate: true,
             query,
           })
         )?.vendor;
@@ -84,8 +85,9 @@ export default function VendorForm() {
       };
       const request: ApiRequest = {
         method: ApiMethod.post,
-        route: ApiRoute.Vendor,
+        route: "vendor",
         body: { vendor: payload },
+        isPrivate: true
       };
 
       if (formData) {

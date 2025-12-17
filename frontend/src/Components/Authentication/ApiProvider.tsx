@@ -3,12 +3,23 @@ import { useCallback, useContext } from "preact/hooks";
 import { useAuth } from "./AuthenticationProvider";
 
 const backendURL = "https://api.closing-connect.com/";
+const backendURLPublic = "https://api-public-degsd2eqfke0d7gm.westus2-01.azurewebsites.net/"
 
-export enum ApiRoute {
-  OpenVendor = "openVendor",
-  Vendor = "vendor",
-  Search = "search"
-}
+export const ApiDefinitions = {
+  public: {
+    url: "https://api-public-degsd2eqfke0d7gm.westus2-01.azurewebsites.net/",
+    routes: ["openVendor", "search"]
+  },
+  private: {
+    url: "https://api.closing-connect.com/",
+    routes: ["openVendor", "vendor", "search"]
+  }
+} as const;
+
+type PublicRoutes = typeof ApiDefinitions.public.routes[number];
+type PrivateRoutes = typeof ApiDefinitions.private.routes[number];
+
+export type ApiRoute = PublicRoutes | PrivateRoutes;
 
 export enum ApiMethod {
   get = "GET",
@@ -18,14 +29,23 @@ export enum ApiMethod {
   patch = "PATCH",
 }
 
-export interface ApiRequest<T = any> {
-  route: ApiRoute;
-  method: ApiMethod;
-  query?: URLSearchParams;
-  body?: T;
-}
-
-type ApiContextType = {
+export type ApiRequest<T = any> = 
+  | {
+      route: PublicRoutes;
+      method: ApiMethod;
+      query?: URLSearchParams;
+      body?: T;
+      isPrivate?: false; // Optional, defaults to public
+    }
+  | {
+      route: PrivateRoutes;
+      method: ApiMethod;
+      query?: URLSearchParams;
+      body?: T;
+      isPrivate: true; // Explicitly required for private routes
+    };
+    
+    type ApiContextType = {
   sendRequest: <T>(request: ApiRequest) => Promise<T | undefined>;
 };
 
@@ -42,7 +62,7 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
     if (request.query) {
       request.query.sort();
     }
-    return `${backendURL}${request.route}${request.query ? `?${request.query}` : ""}`;
+    return `${request.isPrivate ? backendURL : backendURLPublic}${request.route}${request.query ? `?${request.query}` : ""}`;
   }, []);
 
   const getHeaders = useCallback(async () => {
