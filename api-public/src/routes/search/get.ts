@@ -22,7 +22,8 @@ export default async function vendor(
   }
 
   const start = req.query.get("start");
-  const limit = Number(req.query.get("limit"));
+  const limitQuery = req.query.get("limit");
+  const limit = limitQuery ? Number(limitQuery) : undefined;
   const startIndex = start ? Number(start) : undefined;
   const searchClient = new SearchClient<{ id: string; name: string }>(
     searchEndpoint,
@@ -32,7 +33,7 @@ export default async function vendor(
 
   const search = await searchClient.search(searchTerm, {
     select: ["id", "name"],
-    top: isNaN(limit) ? 10 : Number(limit),
+    top: !limit || isNaN(limit) ? 10 : Number(limit),
     skip: startIndex,
     includeTotalCount: true,
     orderBy: ["search.score() desc, name asc"],
