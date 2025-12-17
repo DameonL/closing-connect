@@ -6,6 +6,7 @@ import { v4 } from "uuid";
 import { useApi, ApiMethod, ApiRoute, ApiRequest } from "../Authentication/ApiProvider";
 import { useAuth } from "../Authentication/AuthenticationProvider";
 import { toastMessager } from "../ToastMessages";
+import getFirstLetter from "../../getFirstLetter";
 
 export default function VendorForm() {
   const [vendor, setVendor] = useState<PayoffVendor>();
@@ -73,6 +74,7 @@ export default function VendorForm() {
     e.preventDefault();
     if (!formData) return;
     if (!authentication.isAuthenticated) return;
+    formData.firstLetter = getFirstLetter(formData.name);
 
     setIsSubmitting(true);
     try {
