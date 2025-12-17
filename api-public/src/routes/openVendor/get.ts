@@ -29,7 +29,7 @@ export default async function vendor(
     const startIndex = start ? Number(start) : undefined;
     const searchClient = new SearchClient<{ id: string; name: string }>(
       searchEndpoint,
-      "public-vendor-search",
+      "vendor-search-index",
       new AzureKeyCredential(writeKey)
     );
 
@@ -41,10 +41,8 @@ export default async function vendor(
       orderBy: ["search.score() desc, name asc"],
     });
     const results = [];
-    let currentResult = await search.results.next();
-    while (currentResult) {
-      results.push(currentResult.value);
-      currentResult = await search.results.next();
+    for await (const result of search.results) {
+      results.push(result);
     }
 
     const response: SearchResponse = {
