@@ -77,7 +77,7 @@ export default function PayoffVendorView() {
           <div class="loader"></div>
           <p>Loading vendor details...</p>
         </div>
-      ) : (
+      ) : (details ?
         <div class="vendorDetails">
           {authentication.isAuthenticated && (
             <div
@@ -116,7 +116,7 @@ export default function PayoffVendorView() {
           >
             <h1 style={{ margin: 0 }}>{details?.name ?? ""}</h1>
             <div>
-              {details?.name && (
+              {details.name && (
                 <button
                   class="button"
                   onClick={() => {
@@ -130,133 +130,132 @@ export default function PayoffVendorView() {
               )}
             </div>
           </div>
-
-          {details && (
-            <div style={{ marginTop: "1.5rem" }}>
-              <div class="labelWithValue">
-                <span>Order Method</span>
-                <span>{details.orderMethod}</span>
-              </div>
-
-              {details.phoneNumber && (
-                <div class="labelWithValue">
-                  <span>Phone Number</span>
-                  <span>{details.phoneNumber}</span>
-                  <button
-                    class="button"
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        details.phoneNumber?.toString() ?? ""
-                      );
-                      toastMessager.showToastMessage("Copied phone number!");
-                    }}
-                    title="Copy phone number"
-                  >
-                    📋
-                  </button>
-                </div>
-              )}
-
-              {details.faxNumber && (
-                <div class="labelWithValue">
-                  <span>Fax Number</span>
-                  <span>{details.faxNumber}</span>
-                  <button
-                    class="button"
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        details.faxNumber?.toString() ?? ""
-                      );
-                      toastMessager.showToastMessage("Copied fax number!");
-                    }}
-                    title="Copy fax number"
-                  >
-                    📋
-                  </button>
-                </div>
-              )}
-
-              {details.website && (
-                <div class="labelWithValue">
-                  <span>Website</span>
-                  <a
-                    href={details.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {details.website}
-                  </a>
-                  <button
-                    class="button"
-                    onClick={() => {
-                      navigator.clipboard.writeText(details.website ?? "");
-                      toastMessager.showToastMessage("Copied website!");
-                    }}
-                    title="Copy website"
-                  >
-                    📋
-                  </button>
-                </div>
-              )}
-
-              {details.email && (
-                <div class="labelWithValue">
-                  <span>Email</span>
-                  <a href={`mailto:${details.email}`}>{details.email}</a>
-                  <button
-                    class="button"
-                    onClick={() => {
-                      navigator.clipboard.writeText(details.email ?? "");
-                      toastMessager.showToastMessage("Copied email!");
-                    }}
-                    title="Copy email"
-                  >
-                    📋
-                  </button>
-                </div>
-              )}
-
-              <div class="labelWithValue">
-                <span>Turnaround</span>
-                <span>{details.turnaroundTime}</span>
-              </div>
-              {showAddNote && (
-                <VendorNoteEditor
-                  vendor={details}
-                  onSave={(vendor: PayoffVendor) => {
-                    setShowAddNote(false);
-                    handleNoteUpdated(vendor);
-                  }}
-                  onCancel={() => setShowAddNote(false)}
-                />
-              )}
-
-              {details.notes.length > 0 && (
-                <div style={{ marginTop: "2rem" }}>
-                  <h2
-                    style={{
-                      borderBottom: "2px solid var(--primary)",
-                      paddingBottom: "0.5rem",
-                    }}
-                  >
-                    Notes
-                  </h2>
-                  <div>
-                    {details.notes.map((note) => (
-                      <VendorNote
-                        vendor={details}
-                        key={note.id}
-                        note={note}
-                        onNoteUpdated={handleNoteUpdated}
-                        onNoteDeleted={handleNoteUpdated}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
+          <div style={{ marginTop: "1.5rem" }}>
+            <div class="labelWithValue">
+              <span>Order Method</span>
+              <span>{details.orderMethod}</span>
             </div>
-          )}
-        </div>
+
+            {details.phoneNumber && (
+              <div class="labelWithValue">
+                <span>Phone Number</span>
+                <span>{details.phoneNumber}</span>
+                <button
+                  class="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      details.phoneNumber?.toString() ?? ""
+                    );
+                    toastMessager.showToastMessage("Copied phone number!");
+                  }}
+                  title="Copy phone number"
+                >
+                  📋
+                </button>
+              </div>
+            )}
+
+            {details.faxNumber && (
+              <div class="labelWithValue">
+                <span>Fax Number</span>
+                <span>{details.faxNumber}</span>
+                <button
+                  class="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      details.faxNumber?.toString() ?? ""
+                    );
+                    toastMessager.showToastMessage("Copied fax number!");
+                  }}
+                  title="Copy fax number"
+                >
+                  📋
+                </button>
+              </div>
+            )}
+
+            {details.website && (
+              <div class="labelWithValue">
+                <span>Website</span>
+                <a
+                  href={details.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {details.website}
+                </a>
+                <button
+                  class="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(details.website ?? "");
+                    toastMessager.showToastMessage("Copied website!");
+                  }}
+                  title="Copy website"
+                >
+                  📋
+                </button>
+              </div>
+            )}
+
+            {details.email && (
+              <div class="labelWithValue">
+                <span>Email</span>
+                <a href={`mailto:${details.email}`}>{details.email}</a>
+                <button
+                  class="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(details.email ?? "");
+                    toastMessager.showToastMessage("Copied email!");
+                  }}
+                  title="Copy email"
+                >
+                  📋
+                </button>
+              </div>
+            )}
+
+            <div class="labelWithValue">
+              <span>Turnaround</span>
+              <span>{details.turnaroundTime}</span>
+            </div>
+            {showAddNote && (
+              <VendorNoteEditor
+                vendor={details}
+                onSave={(vendor: PayoffVendor) => {
+                  setShowAddNote(false);
+                  handleNoteUpdated(vendor);
+                }}
+                onCancel={() => setShowAddNote(false)}
+              />
+            )}
+
+            {details.notes.length > 0 && (
+              <div style={{ marginTop: "2rem" }}>
+                <h2
+                  style={{
+                    borderBottom: "2px solid var(--primary)",
+                    paddingBottom: "0.5rem",
+                  }}
+                >
+                  Notes
+                </h2>
+                <div>
+                  {details.notes.map((note) => (
+                    <VendorNote
+                      vendor={details}
+                      key={note.id}
+                      note={note}
+                      onNoteUpdated={handleNoteUpdated}
+                      onNoteDeleted={handleNoteUpdated}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+        </div> :
+        <div class="vendorDetails">Unable to load vendor details.</div>
       )}
     </div>
   );
