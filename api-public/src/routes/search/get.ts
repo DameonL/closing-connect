@@ -26,7 +26,7 @@ export default async function vendor(
   const startIndex = start ? Number(start) : undefined;
   const searchClient = new SearchClient<{ id: string; name: string }>(
     searchEndpoint,
-    "vendor-search-index",
+    "public-vendor-search-index",
     new AzureKeyCredential(writeKey)
   );
 
