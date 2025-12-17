@@ -78,10 +78,12 @@ export default async function vendor(
 
     let updatedVendor: PayoffVendor | undefined;
 
-    newVendor.firstLetter = newVendor.firstLetter.toLowerCase();
+    newVendor.firstLetter = getFirstLetter(newVendor.name);
+    let changes: any | undefined;
     if (existingVendor) {
-      const changes = diff(newVendor, existingVendorResource);
+      changes = diff(newVendor, existingVendorResource);
       changes["userId"] = userId;
+      changes["id"] = existingVendorResource.id;
       const changesContainer = database.container("Vendors-Changes");
       await changesContainer.items.create(changes);
       const response = await existingVendor.replace(newVendor);
@@ -112,7 +114,7 @@ export default async function vendor(
         "Cache-Control": "no-store",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ vendor: updatedVendor, responseBody }),
+      body: JSON.stringify({ vendor: updatedVendor, responseBody, changes }),
     };
   } catch (error) {
     return {
