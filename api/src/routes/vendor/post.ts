@@ -11,6 +11,7 @@ import {
 } from "@azure/search-documents";
 import getFirstLetter from "../../common/Utilities/getFirstLetter";
 import VendorCache from "../../common/Utilities/VendorCache";
+import { diff } from "json-diff";
 
 const writeKey = process.env.PayoffSearchWriteKey;
 const searchEndpoint = "https://payoff-search.search.windows.net";
@@ -43,7 +44,7 @@ export default async function vendor(
         ? container.item(vendorId, firstLetter)
         : undefined;
     const existingVendorResource = existingVendor
-      ? (await existingVendor.read()).resource
+      ? (await existingVendor.read<PayoffVendor>()).resource
       : undefined;
     const newVendor: PayoffVendor = body.vendor;
     newVendor.name = removeIllegalChars(newVendor.name);
@@ -77,6 +78,9 @@ export default async function vendor(
 
     newVendor.firstLetter = newVendor.firstLetter.toLowerCase();
     if (existingVendor) {
+      const changes = diff(newVendor, existingVendorResource);
+      const changesContainer = database.container("Vendors-Changes");
+      await changesContainer.items.create(changes);
       const response = await existingVendor.replace(newVendor);
       updatedVendor = response.resource;
     } else {
