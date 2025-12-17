@@ -29,7 +29,7 @@ export default async function vendor(
     const startIndex = start ? Number(start) : undefined;
     const searchClient = new SearchClient<{ id: string; name: string }>(
       searchEndpoint,
-      "payoffs-index",
+      "api-vendor-search",
       new AzureKeyCredential(writeKey)
     );
 
