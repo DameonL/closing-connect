@@ -4,11 +4,7 @@ import {
   HttpResponseInit,
   InvocationContext,
 } from "@azure/functions";
-import { AzureKeyCredential, SearchClient } from "@azure/search-documents";
 
-const writeKey = process.env.PayoffSearchWriteKey;
-
-const searchEndpoint = "https://api-vendor-search.search.windows.net";
 export default async function vendor(
   req: HttpRequest,
   context: InvocationContext
