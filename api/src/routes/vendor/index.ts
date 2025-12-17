@@ -18,12 +18,14 @@ const routes: AzureHttpRoute[] = [
     route,
     method: HTTPMethod.post,
     handler: vendorPost,
+    authLevel: "function"
   },
   {
     trigger: app.http,
     route,
     method: HTTPMethod.delete,
     handler: vendorDelete,
+    authLevel: "function"
   },
 ];
 
