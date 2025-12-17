@@ -1,8 +1,12 @@
 {
 	"folders": [
     {
-      "name": "api",
+      "name": "Private API",
       "path": "api"
+    },
+    {
+      "name": "Public API",
+      "path": "api-public"
     },
     {
       "name": "frontend",

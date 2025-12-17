@@ -1,0 +1,32 @@
+{
+  "name": "api",
+  "version": "0.20.26",
+  "description": "",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "func start",
+    "dev": "nodemon -e ts,json -i ./dist --exec \"npm start\""
+  },
+  "dependencies": {
+    "@azure/communication-email": "^1.0.0",
+    "@azure/cosmos": "^3.17.3",
+    "@azure/search-documents": "^11.3.1",
+    "copy-files-from-to": "^3.13.0",
+    "json-diff": "^1.0.6"
+  },
+  "devDependencies": {
+    "@azure/functions": "^4.10.0",
+    "@types/closing-connect": "file:../types",
+    "@types/json-diff": "^1.0.3",
+    "@types/node": "^25.0.1",
+    "@types/uuid": "^9.0.1",
+    "nodemon": "^3.1.10",
+    "typescript": "^5.9.3"
+  }
+}
