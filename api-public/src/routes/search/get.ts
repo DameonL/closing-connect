@@ -10,7 +10,7 @@ const writeKey = process.env.PayoffSearchWriteKey;
 const searchEndpoint = "https://api-vendor-search.search.windows.net";
 export default async function vendor(
   req: HttpRequest,
-  context: InvocationContext
+  context: InvocationContext,
 ): Promise<HttpResponseInit> {
   const searchTerm = req.query.get("search");
 
@@ -37,9 +37,11 @@ export default async function vendor(
     includeTotalCount: true,
     orderBy: ["search.score() desc, name asc"],
   });
+
   const results = [];
   for await (const result of search.results) {
-    results.push(result.document);
+    console.log(`Storing ${JSON.stringify(result)}`);
+    results.push(result);
   }
 
   const response: SearchResponse = {
