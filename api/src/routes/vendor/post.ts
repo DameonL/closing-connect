@@ -34,6 +34,8 @@ export default async function vendor(
       firstLetter = firstLetter.toLowerCase();
     }
 
+    const userId = req.headers.get("X-MS-CLIENT-PRINCIPAL-ID");
+
     const client = new CosmosClient(process.env.CosmosDbConnectionString);
     const database = client.database("Payoffs");
     const container = database.container("Vendors");
@@ -79,11 +81,13 @@ export default async function vendor(
     newVendor.firstLetter = newVendor.firstLetter.toLowerCase();
     if (existingVendor) {
       const changes = diff(newVendor, existingVendorResource);
+      changes["userId"] = userId;
       const changesContainer = database.container("Vendors-Changes");
       await changesContainer.items.create(changes);
       const response = await existingVendor.replace(newVendor);
       updatedVendor = response.resource;
     } else {
+      newVendor.createdBy = userId;
       const response = await container.items.upsert<PayoffVendor>(newVendor);
       updatedVendor = response.resource;
     }

@@ -12,4 +12,5 @@ type PayoffVendor = {
   firstLetter: string;
   _rid?: string;
   _ts?: number;
+  createdBy?: string;
 };
