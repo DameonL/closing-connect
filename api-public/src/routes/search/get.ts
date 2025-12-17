@@ -39,7 +39,7 @@ export default async function vendor(
   });
   const results = [];
   for await (const result of search.results) {
-    results.push(result);
+    results.push(result.document);
   }
 
   const response: SearchResponse = {
