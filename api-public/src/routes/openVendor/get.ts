@@ -41,8 +41,10 @@ export default async function vendor(
       orderBy: ["search.score() desc, name asc"],
     });
     const results = [];
-    for await (const result of search.results) {
-      results.push(result);
+    let currentResult = await search.results.next();
+    while (currentResult) {
+      results.push(currentResult.value);
+      currentResult = await search.results.next();
     }
 
     const response: SearchResponse = {
