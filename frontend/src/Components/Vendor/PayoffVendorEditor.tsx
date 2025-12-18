@@ -35,7 +35,7 @@ export default function VendorForm() {
         loadedVendor = (
           await api.sendRequest<{ vendor: PayoffVendor }>({
             method: ApiMethod.get,
-            route: "openVendor",
+            route: "vendor",
             isPrivate: true,
             query,
           })
