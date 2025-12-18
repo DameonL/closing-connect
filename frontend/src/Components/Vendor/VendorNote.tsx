@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
-import { ApiMethod, ApiRoute, useApi } from "../Authentication/ApiProvider";
+import { ApiMethod, useApi } from "../Authentication/ApiProvider";
 import { useAuth } from "../Authentication/AuthenticationProvider";
 import { toastMessager } from "../ToastMessages";
 import { VendorNoteEditor } from "./VendorNoteEditor";

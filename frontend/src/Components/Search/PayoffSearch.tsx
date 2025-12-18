@@ -2,7 +2,7 @@ import { h } from "preact";
 import { useLocation } from "preact-iso";
 import { useEffect, useState } from "preact/hooks";
 import updateWindowQuery from "../../updateWindowQuery";
-import { ApiMethod, ApiRoute, useApi } from "../Authentication/ApiProvider";
+import { ApiMethod, useApi } from "../Authentication/ApiProvider";
 import { useAuth } from "../Authentication/AuthenticationProvider";
 import SearchResult from "./SearchResult";
 
