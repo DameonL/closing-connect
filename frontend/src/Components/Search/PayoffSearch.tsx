@@ -25,7 +25,6 @@ export default function PayoffSearch() {
       method: ApiMethod.get,
       route: "search",
       query,
-      isPrivate: true
     });
     setSearchResults(responseBody);
     setSearching(false);

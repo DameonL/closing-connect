@@ -34,7 +34,6 @@ export default function PayoffVendorView() {
         method: ApiMethod.get,
         route: "openVendor",
         query,
-        isPrivate: true
       });
       setDetails(vendor?.vendor);
     } catch (error) {
