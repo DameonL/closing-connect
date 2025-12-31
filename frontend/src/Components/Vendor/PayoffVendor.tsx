@@ -32,7 +32,7 @@ export default function PayoffVendorView() {
     try {
       const vendor = await api.sendRequest<{ vendor: PayoffVendor }>({
         method: ApiMethod.get,
-        route: "openVendor",
+        route: "vendor",
         query,
       });
       setDetails(vendor?.vendor);

@@ -17,7 +17,7 @@ export default async function vendor(
   if (!searchTerm) {
     return {
       status: 400,
-      body: "Please include a search term in your request."
+      body: "Please include a search term in your query."
     }
   }
 

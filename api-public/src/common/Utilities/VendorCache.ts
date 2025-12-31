@@ -12,7 +12,6 @@ namespace VendorCache {
         },
         body: JSON.stringify({
           files: [
-            `https://api.closing-connect.com/openVendor?id=${vendorId}`,
             `https://api.closing-connect.com/vendor?id=${vendorId}`,
           ],
           prefixes: ["api.closing-connect.com/search"]

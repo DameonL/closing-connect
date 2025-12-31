@@ -13,10 +13,6 @@ export default async function vendor(
     req.query.get("id") && req.query.get("id") !== ""
       ? req.query.get("id")
       : undefined;
-  let firstLetter = req.query.get("firstLetter");
-  if (firstLetter) {
-    firstLetter = firstLetter.toLowerCase();
-  }
 
   const client = new CosmosClient(process.env.CosmosDbConnectionString);
   const database = client.database("ClosingConnect");

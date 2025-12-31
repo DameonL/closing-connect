@@ -7,7 +7,7 @@ import {
   HttpTriggerOptions,
 } from "@azure/functions";
 
-export type AzureRouteName = "vendor" | "openVendor" | "search";
+export type AzureRouteName = "vendor" | "search";
 
 export interface AzureHttpRoute {
   trigger: (name: string, options: HttpFunctionOptions) => void;

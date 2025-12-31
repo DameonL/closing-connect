@@ -1,9 +1,9 @@
 import { AzureCosmosRoute, AzureHttpRoute } from "../AzureRoutes";
-import openVendor from "./openVendor";
+import vendor from "./vendor";
 import search from "./search";
 
 const routes: (AzureHttpRoute | AzureCosmosRoute)[] = [
-  ...openVendor,
+  ...vendor,
   ...search
 ];
 export default routes;
