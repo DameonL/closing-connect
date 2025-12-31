@@ -3,7 +3,7 @@ import { app } from "@azure/functions";
 import { AzureHttpRoute } from "../../AzureRoutes";
 import vendorGet from "./get";
 
-const route = "openVendor";
+const route = "vendor";
 const routes: AzureHttpRoute[] = [
   {
     trigger: app.http,
