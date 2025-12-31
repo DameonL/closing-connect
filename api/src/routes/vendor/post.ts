@@ -37,7 +37,7 @@ export default async function vendor(
     const userId = req.headers.get("X-MS-CLIENT-PRINCIPAL-ID");
 
     const client = new CosmosClient(process.env.CosmosDbConnectionString);
-    const database = client.database("Payoffs");
+    const database = client.database("ClosingConnect");
     const container = database.container("Vendors");
 
     const body = (await req.json()) as { vendor: PayoffVendor };
