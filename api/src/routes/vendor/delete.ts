@@ -5,10 +5,10 @@ import VendorCache from "../../common/Utilities/VendorCache";
 
 const writeKey = process.env.PayoffSearchWriteKey;
 
-const searchEndpoint = "https://payoff-search.search.windows.net";
+const searchEndpoint = "https://api-vendor-search.search.windows.net";
 const searchClient = new SearchClient<{ id: string; name: string }>(
   searchEndpoint,
-  "payoffs-index",
+  "public-vendor-search-index",
   new AzureKeyCredential(writeKey)
 );
 const indexerClient = new SearchIndexerClient(searchEndpoint, new AzureKeyCredential(writeKey));

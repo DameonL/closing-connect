@@ -40,9 +40,7 @@ export default async function vendor(
   });
 
   const results = [];
-  context.log("Adding results");
   for await (const result of search.results) {
-    context.log(`Storing ${JSON.stringify(result)}`);
     results.push(result);
   }
 

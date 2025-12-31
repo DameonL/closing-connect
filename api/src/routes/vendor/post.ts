@@ -14,7 +14,12 @@ import VendorCache from "../../common/Utilities/VendorCache";
 import { diff } from "json-diff";
 
 const writeKey = process.env.PayoffSearchWriteKey;
-const searchEndpoint = "https://payoff-search.search.windows.net";
+const searchEndpoint = "https://api-vendor-search.search.windows.net";
+const searchClient = new SearchClient<{ id: string; name: string }>(
+  searchEndpoint,
+  "public-vendor-search-index",
+  new AzureKeyCredential(writeKey)
+);
 
 function removeIllegalChars(id: string) {
   return id.replace(/[\/\\?#]/g, "");
@@ -63,11 +68,6 @@ export default async function vendor(
         newVendor.name !== existingVendorResource.name)
     ) {
       newVendor.firstLetter = newFirstLetter;
-      const searchClient = new SearchClient<{ id: string; name: string }>(
-        searchEndpoint,
-        "payoffs-index",
-        new AzureKeyCredential(writeKey)
-      );
 
       await searchClient.deleteDocuments([
         { id: existingVendorResource.id, name: existingVendorResource.name },
