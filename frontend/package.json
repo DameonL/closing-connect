@@ -8,7 +8,7 @@
   "scripts": {
     "build": "vite build",
     "watch": "vite build --watch",
-    "dev": "concurrently \"vite build --watch\" \"vite preview\""
+    "dev": "concurrently \"vite build --watch --mode development\" \"vite preview\""
   },
   "copyFilesSettings": {
     "whenFileExists": "overwrite",
