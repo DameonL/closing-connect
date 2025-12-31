@@ -62,7 +62,7 @@ export default async function vendor(
     };
   } else {
     const client = new CosmosClient(process.env.CosmosDbConnectionString);
-    const database = client.database("Payoffs");
+    const database = client.database("ClosingConnect");
     const container = database.container("Vendors");
 
     const queryIterator = container.items.query<PayoffVendor>({

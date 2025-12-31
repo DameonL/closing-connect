@@ -21,7 +21,7 @@ export default async function route(req: HttpRequest, context: InvocationContext
   }
 
   const client = new CosmosClient(process.env.CosmosDbConnectionString);
-  const database = client.database("Payoffs");
+  const database = client.database("ClosingConnect");
   const container = database.container("Vendors");
 
   const vendorItem = vendorId ? container.item(vendorId, firstLetter) : undefined;
