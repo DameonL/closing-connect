@@ -164,6 +164,13 @@ export default function PayoffSearch() {
           </button>
         </div>
       )}
+      <div style={{
+        margin: "auto",
+        width: "fit-content",
+        backgroundColor: "var(--danger)",
+        padding: "0.4rem",
+        borderRadius: "1rem",
+      }}>Login not working? Accounts have been reset; you will need to create a new account (you can do this from the login button).</div>
 
       <div>
         <input
