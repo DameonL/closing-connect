@@ -47,11 +47,13 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
     return `${request.isPrivate ? ApiDefinitions.private.url : ApiDefinitions.public.url}${request.route}${request.query ? `?${request.query}` : ""}`;
   }, []);
 
-  const getHeaders = useCallback(async () => {
+  const getHeaders = useCallback(async (request: ApiRequest) => {
     const headers = new Headers();
-    const apiToken = await getToken();
-    if (apiToken) {
-      headers.append("Authorization", `Bearer ${apiToken}`);
+    if (request.isPrivate) {
+      const apiToken = await getToken();
+      if (apiToken) {
+        headers.append("Authorization", `Bearer ${apiToken}`);
+      }
     }
     return headers;
   }, [getToken]);
@@ -66,7 +68,7 @@ export function ApiProvider({ children }: { children: preact.ComponentChildren }
 
       while (retries > 0) {
         try {
-          const headers = await getHeaders();
+          const headers = await getHeaders(request);
           const requestOptions: RequestInit = {
             method: request.method,
             headers,
