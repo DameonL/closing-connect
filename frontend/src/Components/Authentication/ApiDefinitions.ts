@@ -7,7 +7,7 @@ export const ApiDefinitions = {
   },
   private: {
     url: isDevelopment ? "https://api-private-enezg8cye2dcfkdh.westus2-01.azurewebsites.net/" : "https://api.closing-connect.com/",
-    routes: ["vendor", "search"]
+    routes: ["vendor"]
   }
 } as const;
 
