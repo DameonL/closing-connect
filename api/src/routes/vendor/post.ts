@@ -99,7 +99,7 @@ export default async function vendor(
         searchEndpoint,
         new AzureKeyCredential(writeKey)
       );
-      await indexerClient.runIndexer("payoffs-indexer");
+      await indexerClient.runIndexer("public-vendor-search-indexer");
     } catch (error) { }
 
     let responseBody: string | undefined;

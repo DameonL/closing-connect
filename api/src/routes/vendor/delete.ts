@@ -38,7 +38,7 @@ export default async function route(req: HttpRequest, context: InvocationContext
   await vendorItem.delete();
 
   try {
-    await indexerClient.runIndexer("payoffs-indexer");
+    await indexerClient.runIndexer("public-vendor-search-indexer");
   } catch (error) { }
 
   VendorCache.purge(vendor.id);
