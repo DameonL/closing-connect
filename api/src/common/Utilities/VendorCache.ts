@@ -12,9 +12,10 @@ namespace VendorCache {
         },
         body: JSON.stringify({
           files: [
-            `https://api.closing-connect.com/vendor?id=${vendorId}`,
+            `https://api-private.closing-connect.com/vendor?id=${vendorId}`,
+            `https://api-public.closing-connect.com/vendor?id=${vendorId}`,
           ],
-          prefixes: ["api.closing-connect.com/search"]
+          prefixes: ["api-public.closing-connect.com/search"]
         }),
       }
     )

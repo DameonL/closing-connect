@@ -2,11 +2,11 @@ const isDevelopment = (import.meta as any).env.MODE === "development";
 
 export const ApiDefinitions = {
   public: {
-    url: "https://api-public-degsd2eqfke0d7gm.westus2-01.azurewebsites.net/",
+    url: "https://api-public.closing-connect.com/",
     routes: ["vendor", "search"]
   },
   private: {
-    url: "https://api-private-enezg8cye2dcfkdh.westus2-01.azurewebsites.net/",
+    url: "https://api-private.closing-connect.com/",
     routes: ["vendor"]
   }
 } as const;
