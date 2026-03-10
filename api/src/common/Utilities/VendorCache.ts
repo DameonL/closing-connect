@@ -14,8 +14,7 @@ namespace VendorCache {
           hosts: [
             `api-private.closing-connect.com`,
             `api-public.closing-connect.com`,
-          ],
-          prefixes: ["api-public.closing-connect.com/search"]
+          ]
         }),
       }
     )
