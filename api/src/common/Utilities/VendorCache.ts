@@ -11,9 +11,9 @@ namespace VendorCache {
           Authorization: `Bearer ${cacheClearToken}`,
         },
         body: JSON.stringify({
-          files: [
-            `https://api-private.closing-connect.com/vendor?id=${vendorId}`,
-            `https://api-public.closing-connect.com/vendor?id=${vendorId}`,
+          hosts: [
+            `api-private.closing-connect.com`,
+            `api-public.closing-connect.com`,
           ],
           prefixes: ["api-public.closing-connect.com/search"]
         }),
