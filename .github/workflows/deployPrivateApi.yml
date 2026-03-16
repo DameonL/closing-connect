@@ -51,6 +51,7 @@ jobs:
         with:
           name: node-app
           path: release.zip
+          retention-days: 1
 
   deploy:
     runs-on: ubuntu-latest
@@ -85,3 +86,23 @@ jobs:
           slot-name: 'Production'
           package: .
           sku: 'flexconsumption'
+
+      - name: Delete artifact after deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: artifacts } = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            });
+            const matchArtifact = artifacts.artifacts.filter((artifact) => {
+              return artifact.name == "node-app"
+            })[0];
+            if (matchArtifact) {
+              await github.rest.actions.deleteArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: matchArtifact.id,
+              });
+            }
