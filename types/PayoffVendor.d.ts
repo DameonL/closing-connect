@@ -1,4 +1,4 @@
-type PayoffVendor = {
+declare type PayoffVendor = {
   id?: string;
   name: string;
   type: string;
