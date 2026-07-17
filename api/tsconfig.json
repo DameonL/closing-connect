@@ -5,5 +5,9 @@
     "outDir": "dist",
     "sourceMap": true,
     "strict": false
-  }
+  },
+  "include": [
+    "src/**/*",
+    "../types/**/*.d.ts"
+  ]
 }
