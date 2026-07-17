@@ -79,6 +79,13 @@ export default async function vendor(
     let updatedVendor: PayoffVendor | undefined;
 
     newVendor.firstLetter = getFirstLetter(newVendor.name);
+
+    if (existingVendorResource?.createdBy) {
+      newVendor.createdBy = existingVendorResource.createdBy;
+    } else if (!newVendor.createdBy) {
+      newVendor.createdBy = userId;
+    }
+
     let changes: any | undefined;
     if (existingVendor) {
       changes = diff(newVendor, existingVendorResource);
@@ -89,7 +96,6 @@ export default async function vendor(
       const response = await existingVendor.replace(newVendor);
       updatedVendor = response.resource;
     } else {
-      newVendor.createdBy = userId;
       const response = await container.items.upsert<PayoffVendor>(newVendor);
       updatedVendor = response.resource;
     }

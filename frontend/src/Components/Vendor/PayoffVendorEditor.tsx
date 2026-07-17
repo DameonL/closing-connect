@@ -83,9 +83,16 @@ export default function VendorForm() {
         ...formData,
         notes: formData.notes,
       };
+      const query = vendor
+        ? new URLSearchParams([
+            ["id", vendor.id ?? ""],
+            ["firstLetter", vendor.firstLetter],
+          ])
+        : undefined;
       const request: ApiRequest = {
         method: ApiMethod.post,
         route: "vendor",
+        query,
         body: { vendor: payload },
         isPrivate: true
       };

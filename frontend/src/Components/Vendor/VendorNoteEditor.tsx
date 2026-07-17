@@ -49,9 +49,15 @@ export function VendorNoteEditor({
         });
       }
 
+      const query = new URLSearchParams([
+        ["id", vendor.id ?? ""],
+        ["firstLetter", vendor.firstLetter],
+      ]);
+
       await api.sendRequest({
         method: ApiMethod.post,
         route: "vendor",
+        query,
         body: { vendor: updatedVendor },
         isPrivate: true
       });
